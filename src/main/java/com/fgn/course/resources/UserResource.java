@@ -40,17 +40,19 @@ public class UserResource {
 	@PostMapping
 	public ResponseEntity<User> insert(@RequestBody User obj) {
 		obj = service.insert(obj);
+
 		/*
 		 * deixar no response header qual o caminho da requisição complçeta e colocar o
 		 * status code como 201 created o path fala que ele vai ter depois do users um
 		 * id no qual ele pega no outro metodo a seguir
 		 */
+
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
 	}
 
 	/*
-	 * o responseEntity void é por conta que não terá uma responta no body da
+	 * o ResponseEntity<Void> é por conta que não terá uma responta no body da
 	 * requisição.
 	 */
 	@DeleteMapping(value = "/{id}")
